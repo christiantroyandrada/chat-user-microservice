@@ -663,7 +663,7 @@ jobs:
             # Verify all health endpoints
             ALL_HEALTHY=true
             for EP in /health /api/user/health /chat/health /notifications/health; do
-              if curl -fsS "http://localhost:80${EP}" >/dev/null 2>&1; then
+              if curl -fsS -k --max-time 5 -H "Host: chat.ctaprojects.xyz" "https://localhost${EP}" >/dev/null 2>&1; then
                 echo "✅ ${EP} is healthy"
               else
                 echo "❌ ${EP} health check failed"
